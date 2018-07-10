@@ -36,17 +36,21 @@ export default class App extends Component {
     ]
   }
 
-  componentDidMount() {
-    console.log("componentDidMount <App />");
-    setTimeout(() => {
-      console.log("Simulating incoming message");
-      // Add a new message to the list of messages in the data store
-      const newMessage = {id: 3, username: "Michelle", content: "Hello there!"};
-      const messages = this.state.messages.concat(newMessage)
-      // Update the state of the app component.
-      // Calling setState will trigger a call to render() in App and all child components.
-      this.setState({messages: messages})
-    }, 3000);
+  handleInput = (e) => {
+    if (e.key === 'Enter') {
+      const incomingMessage = {
+        id: Math.floor(Math.random() * 10000),
+        username: this.state.currentUser.name,
+        content: e.target.value
+      };
+
+      let updatedMessages = this.state.messages.slice();
+      messages.push(incomingMessage);
+
+      this.setState({
+        messages: messages
+      })
+    }
   }
 
   render() {
@@ -54,7 +58,9 @@ export default class App extends Component {
       <div>
         <NavBar />
         <MessageList messages={this.state.messages} />
-        <ChatBar currentUser={this.state.currentUser.name} />
+        <ChatBar
+          handleInput={this.handleInput}
+          currentUser={this.state.currentUser.name} />
       </div>
     );
   }

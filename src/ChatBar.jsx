@@ -5,9 +5,10 @@ export default function ChatBar(props) {
     <footer className="chatbar">
       <input
         className="chatbar-username"
-        defaultValue={props.currentUser}
-      />
-      <input className="chatbar-message" placeholder="Type a message and hit enter" />
+        defaultValue={props.currentUser} />
+      <input className="chatbar-message"
+        placeholder="Type a message and hit enter"
+        onKeyDown={props.handleInput} />
     </footer>
   )
 }
