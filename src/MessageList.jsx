@@ -4,7 +4,13 @@ import Message from './Message.jsx';
 export default function MessageList(props) {
 
   const messages = props.messages.map((msg) => {
-    return <Message username={msg.username} content={msg.content} />
+    return (
+      <Message
+        key={msg.id}
+        username={msg.username}
+        content={msg.content}
+      />
+    )
   })
 
   return (
@@ -12,4 +18,5 @@ export default function MessageList(props) {
       {messages}
     </main>
   )
+  
 }
