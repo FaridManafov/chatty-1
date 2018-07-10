@@ -37,7 +37,7 @@ export default class App extends Component {
   }
 
   handleInput = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && e.target.value.length > 0) {
       const incomingMessage = {
         id: Math.floor(Math.random() * 10000),
         username: this.state.currentUser.name,
@@ -45,11 +45,13 @@ export default class App extends Component {
       };
 
       let updatedMessages = this.state.messages.slice();
-      messages.push(incomingMessage);
+      updatedMessages.push(incomingMessage);
 
       this.setState({
-        messages: messages
+        messages: updatedMessages
       })
+
+      e.target.value = '';
     }
   }
 
