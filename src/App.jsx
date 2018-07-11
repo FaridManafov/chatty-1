@@ -13,7 +13,7 @@ export default class App extends Component {
       {
         id: 1,
         content: "Welcome to the chat server! Be nice.",
-        username: "admin"
+        username: "jonathan"
       }
     ]
   }
@@ -54,9 +54,7 @@ export default class App extends Component {
 
   handleNameChange = (e) => {
     let nameField = e.target.value;
-    if (e.key === 'Enter' && nameField.length > 0) {
-      this.state.currentUser.name = nameField;
-    }
+    this.state.currentUser.name = nameField;
   }
 
   render() {

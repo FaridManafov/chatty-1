@@ -6,7 +6,7 @@ export default function ChatBar(props) {
       <input
         className="chatbar-username"
         defaultValue={props.currentUser}
-        onKeyDown={props.handleNameChange} />
+        onChange={props.handleNameChange} />
       <input className="chatbar-message"
         placeholder="Type a message and hit enter"
         onKeyDown={props.handleInput} />
