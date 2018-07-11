@@ -36,6 +36,7 @@ export default class App extends Component {
           username: '***',
           oldUserName: parsed.oldUserName,
           newUserName: parsed.newUserName,
+          type: 'notification'
         };
 
         newMessage.content = `${newMessage.oldUserName} changed their name to ${newMessage.newUserName}`;
@@ -51,7 +52,8 @@ export default class App extends Component {
           const newMessage = {
             id: parsed.messageId,
             content: parsed.content,
-            username: parsed.username
+            username: parsed.username,
+            type: 'chat'
           };
           const updatedMessages = this.state.messages.slice();
           updatedMessages.push(newMessage);
