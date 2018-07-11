@@ -8,11 +8,12 @@ export default class App extends Component {
     currentUser: {
       name: 'Anonymous'
     },
+
     messages: [
       {
         id: 1,
         content: "Welcome to the chat server! Be nice.",
-        username: "jonathan"
+        username: "admin"
       }
     ]
   }
@@ -21,7 +22,7 @@ export default class App extends Component {
     this.socket = new WebSocket("ws://0.0.0.0:3001");
 
     this.socket.onopen = (e) => {
-      console.log('==> websocket connection open')
+      console.log('==> connected')
     }
     this.socket.onmessage = (e) => {
       let parsed = JSON.parse(e.data);
@@ -38,18 +39,16 @@ export default class App extends Component {
         messages: updatedMessages
       });
     }
-
   }
 
   handleInput = (e) => {
-    let inputField = e.target.value;
-    if (e.key === 'Enter' && inputField.length > 0) {
+    if (e.key === 'Enter' && e.target.value.length > 0) {
       const incomingMessage = {
         username: this.state.currentUser.name,
-        content: inputField
+        content: e.target.value
       };
-      inputField = '';
-      this.socket.send(JSON.stringify(incomingMessage));
+      this.socket.send(JSON.stringify(incomingMessage))
+      e.target.value = '';
     }
   }
 
