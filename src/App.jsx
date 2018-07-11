@@ -36,22 +36,37 @@ export default class App extends Component {
     ]
   }
 
+  componentDidMount() {
+    this.socket = new WebSocket("ws://0.0.0.0:3001");
+
+    this.socket.onopen = (e) => {
+      console.log('==> websocket connection open')
+    }
+
+    this.socket.onmessage = (e) => {
+      console.log(e)
+    }
+
+  }
+
   handleInput = (e) => {
-    if (e.key === 'Enter' && e.target.value.length > 0) {
+    let inputField = e.target.value;
+    if (e.key === 'Enter' && inputField.length > 0) {
       const incomingMessage = {
-        id: Math.floor(Math.random() * 10000),
         username: this.state.currentUser.name,
-        content: e.target.value
+        content: inputField
       };
 
-      let updatedMessages = this.state.messages.slice();
-      updatedMessages.push(incomingMessage);
+      console.log(incomingMessage)
+      this.socket.send(JSON.stringify(incomingMessage));
+      inputField = '';
+    }
+  }
 
-      this.setState({
-        messages: updatedMessages
-      })
-
-      e.target.value = '';
+  handleNameChange = (e) => {
+    let nameField = e.target.value;
+    if (e.key === 'Enter' && nameField.length > 0) {
+      this.state.currentUser.name = nameField;
     }
   }
 
@@ -62,6 +77,7 @@ export default class App extends Component {
         <MessageList messages={this.state.messages} />
         <ChatBar
           handleInput={this.handleInput}
+          handleNameChange={this.handleNameChange}
           currentUser={this.state.currentUser.name} />
       </div>
     );
