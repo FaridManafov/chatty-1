@@ -6,32 +6,13 @@ import ChatBar from './ChatBar.jsx'
 export default class App extends Component {
   state = {
     currentUser: {
-      name: 'Bob'
+      name: 'Anonymous'
     },
     messages: [
       {
-        id: 111,
-        type: "incomingMessage",
-        content: "I won't be impressed with technology until I can download food.",
-        username: "Anonymous1"
-      },
-      {
-        id: 222,
-        type: "incomingMessage",
-        content: "I wouldn't want to download Kraft Dinner. I'd be scared of cheese packet loss.",
-        username: "Anonymous2"
-      },
-      {
-        id: 333,
-        type: "incomingMessage",
-        content: "I'd love to download a fried egg, but I'm afraid encryption would scramble it",
-        username: "Anonymous2"
-      },
-      {
-        id: 444,
-        type: "incomingMessage",
-        content: "This isn't funny. You're not funny",
-        username: "nomnom"
+        id: 1,
+        content: "Welcome to the chat server! Be nice.",
+        username: "jonathan"
       }
     ]
   }
@@ -42,8 +23,20 @@ export default class App extends Component {
     this.socket.onopen = (e) => {
       console.log('==> websocket connection open')
     }
-    this.socket.onmessage = function(e) {
-      console.log(e.data)
+    this.socket.onmessage = (e) => {
+      let parsed = JSON.parse(e.data);
+      const newMessage = {
+        id: parsed.messageId,
+        content: parsed.content,
+        username: parsed.username
+      }
+
+      let updatedMessages = this.state.messages.slice();
+      updatedMessages.push(newMessage);
+
+      this.setState({
+        messages: updatedMessages
+      });
     }
 
   }
@@ -55,8 +48,8 @@ export default class App extends Component {
         username: this.state.currentUser.name,
         content: inputField
       };
-      this.socket.send(JSON.stringify(incomingMessage));
       inputField = '';
+      this.socket.send(JSON.stringify(incomingMessage));
     }
   }
 

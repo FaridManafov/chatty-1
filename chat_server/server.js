@@ -18,6 +18,7 @@ wss.on('connection', (ws, req) => {
     newMessage.messageId = uuid();
     wss.clients.forEach((client) => {
       client.send(JSON.stringify(newMessage));
+      console.log('message sent');
     })
   })
 
