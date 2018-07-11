@@ -16,18 +16,10 @@ wss.on('connection', (ws, req) => {
   ws.on('message', function incoming(data) {
     let newMessage = JSON.parse(data);
     newMessage.messageId = uuid();
-    JSON.stringify(newMessage);
-
-    console.log(newMessage);
-
     wss.clients.forEach((client) => {
-      if (client !== ws && client.readyState === WebSocket.OPEN) {
-        client.send(newMessage);
-        console.log('sent');
-      }
+      client.send(JSON.stringify(newMessage));
     })
   })
-
 
   ws.on('close', () => console.log('Client disconnected'));
 });

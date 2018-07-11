@@ -42,9 +42,8 @@ export default class App extends Component {
     this.socket.onopen = (e) => {
       console.log('==> websocket connection open')
     }
-
-    this.socket.onmessage = (e) => {
-      console.log(e)
+    this.socket.onmessage = function(e) {
+      console.log(e.data)
     }
 
   }
@@ -56,8 +55,6 @@ export default class App extends Component {
         username: this.state.currentUser.name,
         content: inputField
       };
-
-      console.log(incomingMessage)
       this.socket.send(JSON.stringify(incomingMessage));
       inputField = '';
     }
