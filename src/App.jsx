@@ -32,7 +32,7 @@ export default class App extends Component {
         username: parsed.username
       }
 
-      let updatedMessages = this.state.messages.slice();
+      const updatedMessages = this.state.messages.slice();
       updatedMessages.push(newMessage);
 
       this.setState({
@@ -53,8 +53,7 @@ export default class App extends Component {
   }
 
   handleNameChange = (e) => {
-    let nameField = e.target.value;
-    this.state.currentUser.name = nameField;
+    this.state.currentUser.name = e.target.value;
   }
 
   render() {
