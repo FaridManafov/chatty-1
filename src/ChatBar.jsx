@@ -10,11 +10,17 @@ export default function ChatBar(props) {
     }
   }
 
+  const clearField = (e) => {
+    e.target.value = '';
+  }
+
   return (
     <footer className="chatbar">
       <input
         className="chatbar-username"
         defaultValue={props.currentUser}
+        onClick={clearField}
+        placeholder='Username'
         onKeyDown={handleNameChange} />
       <input className="chatbar-message"
         placeholder="Type a message and hit enter"
