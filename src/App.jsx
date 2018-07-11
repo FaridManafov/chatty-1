@@ -28,10 +28,12 @@ export default class App extends Component {
 
     this.socket.onmessage = (e) => {
       let parsed = JSON.parse(e.data);
-      console.log(parsed);
+
+      /* Display name changes and chat messages separately */
       if (parsed.type === 'nameChange') {
         const newMessage = {
-          username: 'Server',
+          id: parsed.messageId,
+          username: '***',
           oldUserName: parsed.oldUserName,
           newUserName: parsed.newUserName,
         };

@@ -21,9 +21,10 @@ wss.on('connection', (ws, req) => {
       })
     } else if (newMessage.type === 'nameChange') {
       wss.clients.forEach((client) => {
+        newMessage.messageId = uuid();
         client.send(JSON.stringify(newMessage))
       })
-    }    
+    }
   })
 
   ws.on('close', () => console.log('Client disconnected'));
