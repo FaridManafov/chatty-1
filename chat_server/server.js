@@ -12,6 +12,15 @@ const wss = new SocketServer({ server });
 wss.on('connection', (ws, req) => {
   const address = req.connection.remoteAddress;
 
+  let connections = {
+    type: 'users',
+    data: wss.clients.size
+  }
+
+  wss.clients.forEach((client) => {
+    client.send(JSON.stringify(connections));
+  })
+
   ws.on('message', function incoming(data) {
     let newMessage = JSON.parse(data);
     if (newMessage.type === 'chat') {
@@ -25,6 +34,7 @@ wss.on('connection', (ws, req) => {
         client.send(JSON.stringify(newMessage))
       })
     }
+    console.log(wss.clients.size); //works
   })
 
   ws.on('close', () => console.log('Client disconnected'));

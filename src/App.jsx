@@ -9,11 +9,13 @@ export default class App extends Component {
       name: 'Anonymous'
     },
 
+    usersOnline: 0,
+
     messages: [
       {
         id: 1,
         content: "Welcome to the chat server! Be nice.",
-        username: "jonathan"
+        username: "Server"
       }
     ]
   }
@@ -63,6 +65,11 @@ export default class App extends Component {
           });
         }
 
+        else if (parsed.type === 'users') {
+          this.setState({
+            usersOnline: parsed.data
+          })
+        }
       }
     }
 
@@ -96,7 +103,7 @@ export default class App extends Component {
   render() {
     return (
       <div>
-        <NavBar />
+        <NavBar totalUsers={this.state.usersOnline}/>
         <MessageList messages={this.state.messages} />
         <ChatBar
           handleInput={this.handleInput}
