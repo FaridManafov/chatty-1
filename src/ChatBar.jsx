@@ -1,15 +1,25 @@
 import React, {Component} from 'react';
 
 export default function ChatBar(props) {
+  let nextTextField;
+
+  const handleNameChange = (e) => {
+    if (e.key === 'Enter' && e.target.value.length > 0) {
+      props.handleNameChange(e.target.value)
+      nextTextField.focus();
+    }
+  }
+
   return (
     <footer className="chatbar">
       <input
         className="chatbar-username"
         defaultValue={props.currentUser}
-        onKeyDown={props.handleNameChange} />
+        onKeyDown={handleNameChange} />
       <input className="chatbar-message"
         placeholder="Type a message and hit enter"
-        onKeyDown={props.handleInput} />
+        onKeyDown={props.handleInput}
+        ref={(node) => nextTextField = node}/>
     </footer>
   )
 }
