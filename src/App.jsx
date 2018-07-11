@@ -19,11 +19,13 @@ export default class App extends Component {
   }
 
   componentDidMount() {
+    /* Handle websocket connection */
     this.socket = new WebSocket("ws://0.0.0.0:3001");
 
     this.socket.onopen = (e) => {
       console.log('==> connected')
     }
+
     this.socket.onmessage = (e) => {
       let parsed = JSON.parse(e.data);
       const newMessage = {
@@ -42,6 +44,7 @@ export default class App extends Component {
   }
 
   handleInput = (e) => {
+    /* Send value of user chat input to socket */
     if (e.key === 'Enter' && e.target.value.length > 0) {
       const incomingMessage = {
         username: this.state.currentUser.name,

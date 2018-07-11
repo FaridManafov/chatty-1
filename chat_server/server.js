@@ -11,15 +11,12 @@ const wss = new SocketServer({ server });
 
 wss.on('connection', (ws, req) => {
   const address = req.connection.remoteAddress;
-  console.log(`Client connected from ${address}`);
 
   ws.on('message', function incoming(data) {
     let newMessage = JSON.parse(data);
     newMessage.messageId = uuid();
-
     wss.clients.forEach((client) => {
       client.send(JSON.stringify(newMessage));
-      console.log('message sent');
     })
   })
 
