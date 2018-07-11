@@ -28,25 +28,45 @@ export default class App extends Component {
 
     this.socket.onmessage = (e) => {
       let parsed = JSON.parse(e.data);
-      const newMessage = {
-        id: parsed.messageId,
-        content: parsed.content,
-        username: parsed.username
+      console.log(parsed);
+      if (parsed.type === 'nameChange') {
+        const newMessage = {
+          username: 'Server',
+          oldUserName: parsed.oldUserName,
+          newUserName: parsed.newUserName,
+        };
+
+        newMessage.content = `${newMessage.oldUserName} changed their name to ${newMessage.newUserName}`;
+
+        const updatedMessages = this.state.messages.slice();
+        updatedMessages.push(newMessage);
+
+        this.setState({
+          messages: updatedMessages
+        });
+
+      } else if (parsed.type === 'chat') {
+          const newMessage = {
+            id: parsed.messageId,
+            content: parsed.content,
+            username: parsed.username
+          };
+          const updatedMessages = this.state.messages.slice();
+          updatedMessages.push(newMessage);
+
+          this.setState({
+            messages: updatedMessages
+          });
+        }
+
       }
-
-      const updatedMessages = this.state.messages.slice();
-      updatedMessages.push(newMessage);
-
-      this.setState({
-        messages: updatedMessages
-      });
     }
-  }
 
   handleInput = (e) => {
     /* Send value of user chat input to socket */
     if (e.key === 'Enter' && e.target.value.length > 0) {
       const incomingMessage = {
+        type: 'chat',
         username: this.state.currentUser.name,
         content: e.target.value
       };
@@ -56,7 +76,17 @@ export default class App extends Component {
   }
 
   handleNameChange = (e) => {
-    this.state.currentUser.name = e.target.value;
+    if (e.key === 'Enter' && e.target.value.length > 0) {
+      const nameChangeMsg = {
+        type: 'nameChange',
+        oldUserName: this.state.currentUser.name,
+        newUserName: e.target.value
+      };
+      /* Set state */
+      this.state.currentUser.name = e.target.value;
+      /*Send the message*/
+      this.socket.send(JSON.stringify(nameChangeMsg))
+    }
   }
 
   render() {
@@ -69,7 +99,6 @@ export default class App extends Component {
           handleNameChange={this.handleNameChange}
           currentUser={this.state.currentUser.name} />
       </div>
-    );
+    )
   }
-
 }

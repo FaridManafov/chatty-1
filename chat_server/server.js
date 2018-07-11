@@ -14,10 +14,16 @@ wss.on('connection', (ws, req) => {
 
   ws.on('message', function incoming(data) {
     let newMessage = JSON.parse(data);
-    newMessage.messageId = uuid();
-    wss.clients.forEach((client) => {
-      client.send(JSON.stringify(newMessage));
-    })
+    if (newMessage.type === 'chat') {
+      newMessage.messageId = uuid();
+      wss.clients.forEach((client) => {
+        client.send(JSON.stringify(newMessage));
+      })
+    } else if (newMessage.type === 'nameChange') {
+      wss.clients.forEach((client) => {
+        client.send(JSON.stringify(newMessage))
+      })
+    }    
   })
 
   ws.on('close', () => console.log('Client disconnected'));
