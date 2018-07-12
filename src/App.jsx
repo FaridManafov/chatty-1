@@ -11,9 +11,7 @@ export default class App extends Component {
         name: 'Anonymous',
         color: 'black'
       },
-
       usersOnline: 0,
-
       messages: [
         {
           id: 1,
@@ -21,7 +19,8 @@ export default class App extends Component {
           content: "Welcome to the chat server! Be nice.",
           username: "Server"
         }
-      ]
+      ],
+      mostRecentMessageId: ''
     }
   }
 
@@ -77,7 +76,8 @@ export default class App extends Component {
           updatedMessages.push(newMessage);
 
           this.setState({
-            messages: updatedMessages
+            messages: updatedMessages,
+            mostRecentMessageId: newMessage.id
           });
         }
 
@@ -118,7 +118,8 @@ export default class App extends Component {
     return (
       <div>
         <NavBar totalUsers={this.state.usersOnline}/>
-        <MessageList messages={this.state.messages} />
+        <MessageList messages={this.state.messages}
+          mostRecentMessageId={this.state.mostRecentMessageId} />
         <ChatBar
           handleInput={this.handleInput}
           handleNameChange={this.handleNameChange}

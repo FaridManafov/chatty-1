@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import Message from './Message.jsx';
 
 export default function MessageList(props) {
-
   const messages = props.messages.map((msg) => {
 
     if (msg.type === 'chat') {
@@ -12,7 +11,9 @@ export default function MessageList(props) {
           type={msg.type}
           username={msg.username}
           content={msg.content}
-          userColor={msg.userColor}/>
+          userColor={msg.userColor}
+          isMostRecentMessage={msg.id === props.mostRecentMessageId}
+        />
         )
     } else if (msg.type === 'notification') {
       return (
@@ -22,7 +23,8 @@ export default function MessageList(props) {
           content={msg.content} />
       )
     }
-  })
+
+  });
 
   return (
     <main className="messages">
