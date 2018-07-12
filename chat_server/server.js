@@ -10,30 +10,27 @@ const server = express()
 const wss = new SocketServer({ server });
 
 wss.on('connection', (ws, req) => {
-  const address = req.connection.remoteAddress;
-
+  /*Generates a random color and returns a message to send to the client */
   const generateRandomColor = () => {
     const colors = [
-      'red',
-      'orange',
-      'yellow',
-      'green',
-      'blue'
+      '#5f89cc', //blue
+      '#624ead', //purple
+      '#62ba79', //green
+      '#c95656', //red
     ];
-
-    //let usedcolors 
 
     const outgoingMsg = {
       type: 'nameColor',
-      color: colors[Math.floor(Math.random() * 4)]
+      color: colors[Math.floor(Math.random() * 5)]
     }
 
     return outgoingMsg;
   }
 
+  /* Send each new connection a color for them to use in their state */
   ws.send(JSON.stringify(generateRandomColor()));
-  // client.send(JSON.stringify(generateRandomColor()));
 
+  /* All connected sockets */
   let connections = {
     type: 'users',
     data: wss.clients.size
@@ -43,6 +40,7 @@ wss.on('connection', (ws, req) => {
     client.send(JSON.stringify(connections));
   })
 
+  /* When receiving a message, unpack it, add an ID, and send it back to client */
   ws.on('message', function incoming(data) {
     let newMessage = JSON.parse(data);
     if (newMessage.type === 'chat') {

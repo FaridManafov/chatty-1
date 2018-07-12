@@ -89,8 +89,8 @@ export default class App extends Component {
       }
     }
 
+  /* Send value of user chat input to socket */
   handleInput = (e) => {
-    /* Send value of user chat input to socket */
     if (e.key === 'Enter' && e.target.value.length > 0) {
       const incomingMessage = {
         type: 'chat',
@@ -103,15 +103,14 @@ export default class App extends Component {
     }
   }
 
+  /* Set username state and Send a message to server with name change details */
   handleNameChange = (username) => {
       const nameChangeMsg = {
         type: 'nameChange',
         oldUserName: this.state.currentUser.name,
         newUserName: username
       };
-      /* Set state */
       this.state.currentUser.name = username;
-      /*Send the message*/
       this.socket.send(JSON.stringify(nameChangeMsg))
   }
 
