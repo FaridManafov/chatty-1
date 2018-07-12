@@ -21,6 +21,8 @@ wss.on('connection', (ws, req) => {
       'blue'
     ];
 
+    //let usedcolors 
+
     const outgoingMsg = {
       type: 'nameColor',
       color: colors[Math.floor(Math.random() * 4)]

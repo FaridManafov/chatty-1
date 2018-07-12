@@ -4,21 +4,24 @@ import MessageList from './MessageList.jsx'
 import ChatBar from './ChatBar.jsx'
 
 export default class App extends Component {
-  state = {
-    currentUser: {
-      name: 'Anonymous',
-      color: 'black'
-    },
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentUser: {
+        name: 'Anonymous',
+        color: 'black'
+      },
 
-    usersOnline: 0,
+      usersOnline: 0,
 
-    messages: [
-      {
-        id: 1,
-        content: "Welcome to the chat server! Be nice.",
-        username: "Server"
-      }
-    ]
+      messages: [
+        {
+          id: 1,
+          content: "Welcome to the chat server! Be nice.",
+          username: "Server"
+        }
+      ]
+    }
   }
 
   componentDidMount() {
@@ -33,9 +36,11 @@ export default class App extends Component {
       let parsed = JSON.parse(e.data);
 
       if (parsed.type === 'nameColor') {
-        this.setState({
-          currentUser: {
-            color: parsed.color
+        this.setState((prevState) => {
+          const currentUser = prevState.currentUser;
+          currentUser.color = parsed.color;
+          return {
+            currentUser: currentUser
           }
         })
       }
