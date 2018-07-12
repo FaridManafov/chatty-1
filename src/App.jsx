@@ -17,6 +17,7 @@ export default class App extends Component {
       messages: [
         {
           id: 1,
+          type: 'chat',
           content: "Welcome to the chat server! Be nice.",
           username: "Server"
         }
