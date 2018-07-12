@@ -11,7 +11,8 @@ export default function MessageList(props) {
           key={msg.id}
           type={msg.type}
           username={msg.username}
-          content={msg.content} />
+          content={msg.content}
+          userColor={msg.userColor}/>
         )
     } else if (msg.type === 'notification') {
       return (

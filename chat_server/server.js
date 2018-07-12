@@ -12,6 +12,26 @@ const wss = new SocketServer({ server });
 wss.on('connection', (ws, req) => {
   const address = req.connection.remoteAddress;
 
+  const generateRandomColor = () => {
+    const colors = [
+      'red',
+      'orange',
+      'yellow',
+      'green',
+      'blue'
+    ];
+
+    const outgoingMsg = {
+      type: 'nameColor',
+      color: colors[Math.floor(Math.random() * 4)]
+    }
+
+    return outgoingMsg;
+  }
+
+  ws.send(JSON.stringify(generateRandomColor()));
+  // client.send(JSON.stringify(generateRandomColor()));
+
   let connections = {
     type: 'users',
     data: wss.clients.size

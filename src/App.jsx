@@ -6,7 +6,8 @@ import ChatBar from './ChatBar.jsx'
 export default class App extends Component {
   state = {
     currentUser: {
-      name: 'Anonymous'
+      name: 'Anonymous',
+      color: 'black'
     },
 
     usersOnline: 0,
@@ -30,6 +31,14 @@ export default class App extends Component {
 
     this.socket.onmessage = (e) => {
       let parsed = JSON.parse(e.data);
+
+      if (parsed.type === 'nameColor') {
+        this.setState({
+          currentUser: {
+            color: parsed.color
+          }
+        })
+      }
 
       /* Display name changes and chat messages separately */
       if (parsed.type === 'nameChange') {
@@ -55,6 +64,7 @@ export default class App extends Component {
             id: parsed.messageId,
             content: parsed.content,
             username: parsed.username,
+            userColor: parsed.userColor,
             type: 'chat'
           };
           const updatedMessages = this.state.messages.slice();
@@ -79,7 +89,8 @@ export default class App extends Component {
       const incomingMessage = {
         type: 'chat',
         username: this.state.currentUser.name,
-        content: e.target.value
+        content: e.target.value,
+        userColor: this.state.currentUser.color
       };
       this.socket.send(JSON.stringify(incomingMessage))
       e.target.value = '';
