@@ -3,7 +3,6 @@ import React, {Component} from 'react';
 export default function Message(props) {
   if (props.type === 'chat') {
 
-    console.log('COLOR', props.userColor)
     let userStyle = {
       color: props.userColor
     }
@@ -21,7 +20,7 @@ export default function Message(props) {
     return (
       <div className="notification">
         <span className="notification-content">
-          <i>* {props.content}</i>
+          {props.content}
         </span>
       </div>
     )
