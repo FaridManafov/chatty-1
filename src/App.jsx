@@ -25,12 +25,14 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    /* Handle websocket connection */
+    /* Initialize websocket connection */
     this.socket = new WebSocket("ws://0.0.0.0:3001");
 
     this.socket.onopen = (e) => {
       console.log('==> connected')
     }
+
+    /* Unpackage server response and update state according to type of message: Chat, notification, user color, etc. */
 
     this.socket.onmessage = (e) => {
       let parsed = JSON.parse(e.data);
@@ -45,7 +47,6 @@ export default class App extends Component {
         })
       }
 
-      /* Display name changes and chat messages separately */
       if (parsed.type === 'nameChange') {
         const newMessage = {
           id: parsed.messageId,
@@ -89,7 +90,7 @@ export default class App extends Component {
       }
     }
 
-  /* Send value of user chat input to socket */
+  /* Send value of user chat input to socket, complete with username/user color */
   handleInput = (e) => {
     if (e.key === 'Enter' && e.target.value.length > 0) {
       const incomingMessage = {
@@ -103,7 +104,7 @@ export default class App extends Component {
     }
   }
 
-  /* Set username state and Send a message to server with name change details */
+  /* Set current username state and send a message to websocket server with name change details */
   handleNameChange = (username) => {
       const nameChangeMsg = {
         type: 'nameChange',
@@ -114,6 +115,7 @@ export default class App extends Component {
       this.socket.send(JSON.stringify(nameChangeMsg))
   }
 
+  /* Pass props down to stateless/functional components */
   render() {
     return (
       <div>

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 
+/* Use refs to autofocus on chat field after a user presses enter to change their username */
 export default function ChatBar(props) {
   let nextTextField;
 
