@@ -24,6 +24,8 @@ body {
   line-height: 40px;
   margin: 5px;
   padding: 0 9px;
+  border-radius: 4px 4px 4px 4px;
+  border-style: hidden;
 }
 
 .chatbar-message {
@@ -37,6 +39,10 @@ body {
 .message {
   display: flex;
   padding: 5px;
+  &:hover {
+    background-color: #f4bcc1;
+    font-size: 1.01em;
+  }
 }
 
 .message.system {
@@ -81,13 +87,14 @@ body {
 
   span {
     font-weight: bold;
-    font-size: 12px;
+    font-size: 14px;
     padding-top: 22px;
+    padding-right: 10px;
   }
 }
 
 .navbar-brand {
-  color: inherit;
+  color: white;
   font-weight: 700;
   font-size: 28px;
   height: 60px;
