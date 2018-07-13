@@ -7,7 +7,7 @@ body {
 }
 
 .chatbar {
-  background: #f9b8b8;
+  background: #f9f2f2;
   bottom: 0;
   display: flex;
   left: 0;
@@ -24,8 +24,8 @@ body {
   line-height: 40px;
   margin: 5px;
   padding: 0 9px;
-  border-radius: 4px 4px 4px 4px;
-  border-style: hidden;
+  border-radius: 5px 5px 5px 5px;
+  border-style: outset;
 }
 
 .chatbar-message {
@@ -38,10 +38,11 @@ body {
 
 .message {
   display: flex;
+  font-size: 15px;
   padding: 5px;
   &:hover {
-    background-color: #f4bcc1;
-    font-size: 1.01em;
+    background-color: #eaedf2;
+    font-size: 1.08em;
   }
 }
 
@@ -74,9 +75,9 @@ body {
 }
 
 .navbar {
-  background: #ff8282;
-  color: #444444;
-  height: 60px;
+  background: #486491;
+  color: white;
+  height: 48px;
   left: 0;
   padding: 0 10px;
   position: fixed;
@@ -84,10 +85,11 @@ body {
   top: 0;
   display: flex;
   justify-content: space-between;
+  padding-bottom: 6px;
 
   span {
     font-weight: bold;
-    font-size: 14px;
+    font-size: 13px;
     padding-top: 22px;
     padding-right: 10px;
   }
@@ -96,8 +98,8 @@ body {
 .navbar-brand {
   color: white;
   font-weight: 700;
-  font-size: 28px;
-  height: 60px;
+  font-size: 24px;
+  height: 44px;
   line-height: 60px;
   padding: 0 10px;
   text-decoration: none;
@@ -108,7 +110,7 @@ body {
 }
 
 .most-recent-message {
-  animation: messageFlash 1000ms ease-in;
+  animation: messageFlash 700ms ease-in;
 }
 
 @keyframes messageFlash {
