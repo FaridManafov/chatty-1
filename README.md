@@ -1,45 +1,46 @@
-React Boilerplate
-=====================
+# chatty
 
-A minimal and light dev environment for ReactJS.
+A real-time chat app built with React and WebSockets.
 
-### Usage
+## Features
 
-Clone the boilerplate and create your own git repo.
+- Name changes
+- Colors assigned to each user
+- Active user count
+- Conditional class highlighting on new messages
 
-```
-git clone git@github.com:lighthouse-labs/react-simple-boilerplate.git
-cd react-simple-boilerplate
-git remote rm origin
-git remote add origin [YOUR NEW REPOSITORY]
-# Manually update your package.json file
-```
+## Screenshots
 
-Install the dependencies and start the server.
+[]
 
-```
-npm install
-npm start
-open http://localhost:3000
-```
+## Dependencies
 
-### Static Files
+`npm` and `nodejs` are required to run this app.
 
-You can store static files like images, fonts, etc in the `build` folder.
+### Client
 
-For example, if you copy a file called my_image.png into the build folder you can access it using `http://localhost:3000/build/my_image.png`.
+- react
+- babel
+- webpack
+- eslint
+- node-sass
+- sockjs
 
-### Linting
+### WebSocket Server
 
-This boilerplate project includes React ESLint configuration.
+- express
+- ws
+- uuid
 
-```
-npm run lint
-```
 
-### Dependencies
+## Getting Started
 
-* React
-* Webpack
-* [babel-loader](https://github.com/babel/babel-loader)
-* [webpack-dev-server](https://github.com/webpack/webpack-dev-server)
+- In the root directory, run `npm install` to install client-side dependencies.
+- In the `chat_server` directory, run `npm install` again to install WebSocket dependencies. Run `node server.js` to start the WS server.
+- Back in the parent directory, run `npm start` and head to localhost:3000 in your browser.
+
+## To Do
+
+- Sidebar displaying names of active users
+- Allow users to embed images/video
+- Fluid UI/UX & transitions
