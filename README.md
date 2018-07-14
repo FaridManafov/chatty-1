@@ -43,4 +43,4 @@ A real-time chat app built with React and WebSockets.
 - Sidebar displaying names of active users
 - Allow users to embed images/video
 - Fluid UI/UX & transitions
-- Server broadcast on user connect/disconnected
+- Server broadcast on user connect/disconnect
