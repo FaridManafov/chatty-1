@@ -2,7 +2,7 @@
 
 A real-time chat app built with React and WebSockets.
 
-![Chatty in action](https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif)
+![Chatty in action](https://github.com/jonathandannel/chatty/blob/master/docs/demo.gif?raw=true)
 
 
 ## Features
