@@ -2,16 +2,15 @@
 
 A real-time chat app built with React and WebSockets.
 
+![Chatty in action](https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif)
+
+
 ## Features
 
 - Name changes
 - Colors assigned to each user
 - Active user count
 - Conditional class highlighting on new messages
-
-## Screenshots
-
-[]
 
 ## Dependencies
 
@@ -44,3 +43,4 @@ A real-time chat app built with React and WebSockets.
 - Sidebar displaying names of active users
 - Allow users to embed images/video
 - Fluid UI/UX & transitions
+- Server broadcast on user connect/disconnected
